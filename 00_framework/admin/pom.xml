@@ -139,6 +139,7 @@
                 </executions>
                 <configuration>
 				    <includeSystemScope>true</includeSystemScope>
+                    <jvmArguments>--add-opens java.base/java.lang=ALL-UNNAMED</jvmArguments>
 				</configuration>
             </plugin>
         </plugins>
