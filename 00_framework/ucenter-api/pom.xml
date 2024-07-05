@@ -120,6 +120,11 @@
 			<artifactId>exchange-core</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.18</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -151,7 +156,7 @@
 										<archive>
 												<manifestEntries>
 														<Add-Exports>java.base/sun.nio.ch</Add-Exports>
-														<Add-Opens>java.base/java.util java.base/java.io java.base/java.nio java.base/java.lang java.base/java.lang.invoke java.base/sun.security.util java.base/sun.security.action</Add-Opens>
+														<Add-Opens>java.rmi/sun.rmi.transport java.base/java.util java.base/java.io java.base/java.nio java.base/java.lang java.base/java.lang.invoke java.base/sun.security.util java.base/sun.security.action</Add-Opens>
 												</manifestEntries>
 										</archive>
 								</configuration>

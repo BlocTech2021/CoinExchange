@@ -123,6 +123,11 @@
 			<groupId>io.reactivex</groupId>
 			<artifactId>rxjava</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.18</version>
+		</dependency>
 	</dependencies>
 
 	<build>

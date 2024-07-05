@@ -73,6 +73,11 @@
             <groupId>io.reactivex</groupId>
             <artifactId>rxjava</artifactId>
         </dependency>
+        <dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.18</version>
+		</dependency>
     </dependencies>
 
     <properties>
@@ -98,23 +103,23 @@
 				<artifactId>maven-jar-plugin</artifactId>
 
 				<executions>
-						<execution>
-								<id>default-jar</id>
-								<phase>package</phase>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
 
-								<goals>
-										<goal>jar</goal>
-								</goals>
+                        <goals>
+                                <goal>jar</goal>
+                        </goals>
 
-								<configuration>
-										<archive>
-												<manifestEntries>
-														<Add-Exports>java.base/sun.nio.ch</Add-Exports>
-														<Add-Opens>java.base/java.util java.base/java.io java.base/java.nio java.base/java.lang java.base/java.lang.invoke java.base/sun.security.util java.base/sun.security.action</Add-Opens>
-												</manifestEntries>
-										</archive>
-								</configuration>
-						</execution>
+                        <configuration>
+                                <archive>
+                                        <manifestEntries>
+                                                <Add-Exports>java.base/sun.nio.ch</Add-Exports>
+                                                <Add-Opens>java.rmi/sun.rmi.transport java.base/java.util java.base/java.io java.base/java.nio java.base/java.lang java.base/java.lang.invoke java.base/sun.security.util java.base/sun.security.action</Add-Opens>
+                                        </manifestEntries>
+                                </archive>
+                        </configuration>
+                    </execution>
 				</executions>
 			</plugin>
             <plugin>

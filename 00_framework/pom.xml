@@ -11,18 +11,18 @@
 	<description>数字货币交易系统父节点</description>
 	<url>bizzan.com</url>
 	<modules>
+		<module>cloud</module>
 		<module>core</module>
 		<module>admin</module>
-        <module>chat</module>
-        <module>exchange</module>
-        <module>market</module>
-        <module>exchange-core</module>
-        <module>exchange-api</module>
+		<module>chat</module>
+		<module>exchange</module>
+		<module>market</module>
+		<module>exchange-core</module>
+		<module>exchange-api</module>
 		<module>otc-core</module>
-        <module>otc-api</module>
-        <module>ucenter-api</module>
-        <module>cloud</module>
-        <module>wallet</module>
+		<module>otc-api</module>
+		<module>ucenter-api</module>
+		<module>wallet</module>
 	</modules>
 
 	<parent>
@@ -473,6 +473,17 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+						<argLine>
+								--add-opens=java.base/java.lang=ALL-UNNAMED
+								--add-opens=java.base/java.util=ALL-UNNAMED
+						</argLine>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
