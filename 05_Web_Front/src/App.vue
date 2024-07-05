@@ -1253,15 +1253,15 @@ export default {
   }
 }
 .appdownload {
-  /deep/ .ivu-poptip-inner {
+  ::v-deep .ivu-poptip-inner {
     background-color: #27313e;
     color: #fff;
     padding-top: 10px;
   }
-  /deep/ .ivu-poptip-popper .ivu-poptip-arrow {
+  ::v-deep .ivu-poptip-popper .ivu-poptip-arrow {
     border-bottom-color: #27313e;
   }
-  /deep/ .ivu-poptip-popper .ivu-poptip-arrow:after {
+  ::v-deep .ivu-poptip-popper .ivu-poptip-arrow:after {
     border-bottom-color: #27313e;
   }
 }
