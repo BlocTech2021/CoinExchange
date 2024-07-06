@@ -248,15 +248,17 @@ public class RegisterController {
         isTrue(!memberService.emailIsExist(email), localeMessageSourceService.getMessage("EMAIL_ALREADY_BOUND"));
         isTrue(!memberService.usernameIsExist(loginByEmail.getUsername()), localeMessageSourceService.getMessage("USERNAME_ALREADY_EXISTS"));
         // isTrue(memberService.userPromotionCodeIsExist(loginByEmail.getPromotion()),localeMessageSourceService.getMessage("USER_PROMOTION_CODE_EXISTS"));
-        ValueOperations valueOperations = redisTemplate.opsForValue();
 
-        Object code =valueOperations.get(SysConstant.EMAIL_REG_CODE_PREFIX + email);
-        notNull(code, localeMessageSourceService.getMessage("VERIFICATION_CODE_NOT_EXISTS"));
-        if (!code.toString().equals(loginByEmail.getCode())) {
-            return error(localeMessageSourceService.getMessage("VERIFICATION_CODE_INCORRECT"));
-        } else {
-            valueOperations.getOperations().delete(SysConstant.EMAIL_REG_CODE_PREFIX + email);
-        }
+        // Andy: We don't need verification code
+        // ValueOperations valueOperations = redisTemplate.opsForValue();
+
+        // Object code =valueOperations.get(SysConstant.EMAIL_REG_CODE_PREFIX + email);
+        // notNull(code, localeMessageSourceService.getMessage("VERIFICATION_CODE_NOT_EXISTS"));
+        // if (!code.toString().equals(loginByEmail.getCode())) {
+        //     return error(localeMessageSourceService.getMessage("VERIFICATION_CODE_INCORRECT"));
+        // } else {
+        //     valueOperations.getOperations().delete(SysConstant.EMAIL_REG_CODE_PREFIX + email);
+        // }
 
         //不可重复随机数
         String loginNo = String.valueOf(idWorkByTwitter.nextId());
@@ -279,11 +281,13 @@ public class RegisterController {
         member.setSalt(credentialsSalt);
         member.setAvatar("https://bizzanex.oss-cn-hangzhou.aliyuncs.com/defaultavatar.png"); // 默认用户头像
         Member member1 = memberService.save(member);
-
+        log.info("Member " + member.getUsername() + " is created");
         if (member1 != null) {
             // Member为@entity注解类，与数据库直接映射，因此，此处setPromotionCode会直接同步到数据库
             member1.setPromotionCode(GeneratorUtil.getPromotionCode(member1.getId()));
-            memberEvent.onRegisterSuccess(member1, loginByEmail.getPromotion().trim());
+            String promotionCode = loginByEmail.getPromotion() == null ? null : loginByEmail.getPromotion().trim();
+            memberEvent.onRegisterSuccess(member1, promotionCode);
+            log.info("Send success response to /register/email");
             return success(localeMessageSourceService.getMessage("REGISTRATION_SUCCESS"));
         } else {
             return error(localeMessageSourceService.getMessage("REGISTRATION_FAILED"));

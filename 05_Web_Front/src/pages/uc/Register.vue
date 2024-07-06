@@ -15,7 +15,7 @@
           <Input type="text" v-model="formInline.user" :placeholder="key" v-if="changeActive==0">
             <Select v-model="country" slot="prepend" style="width: 65px;border-bottom: 1px solid #27313e;">
               <Option value="中国" label="+86"><span>+86</span><span style="margin-left:10px;color:#ccc">{{$t('uc.regist.china')}}</span></Option>             
-			  <Option value="新加坡" label="+65"><span>+65</span><span style="margin-left:10px;color:#ccc">{{$t('uc.regist.singapore')}}</span></Option>
+			        <Option value="新加坡" label="+65"><span>+65</span><span style="margin-left:10px;color:#ccc">{{$t('uc.regist.singapore')}}</span></Option>
               <Option value="韩国" label="+82"><span>+82</span><span style="margin-left:10px;color:#ccc">{{$t('uc.regist.korea')}}</span></Option>
               <Option value="日本" label="+81"><span>+81</span><span style="margin-left:10px;color:#ccc">{{$t('uc.regist.japan')}}</span></Option>
               <Option value="泰国" label="+66"><span>+66</span><span style="margin-left:10px;color:#ccc">{{$t('uc.regist.thailand')}}</span></Option>
@@ -352,22 +352,26 @@ export default {
       //     self.success();
       // });
       // captcha1.show(); // 显示验证码
-	  var that = this;
-	  this.$http.get(this.host + this.api.uc.captcha).then(function(res) {
-	    window.initGeetest(
-	      {
-	        // 以下配置参数来自服务端 SDK
-	        gt: res.body.gt,
-	        challenge: res.body.challenge,
-	        offline: !res.body.success, //表示用户后台检测极验服务器是否宕机
-	        new_captcha: res.body.new_captcha, //用于宕机时表示是新验证码的宕机
-	        product: "bind",
-	        width: "100%",
-	  		lang: "en"
-	      },
-			this.handler
-	    );
-	  });
+      
+      var self = this;
+      self.isRegister = true;
+      
+      var that = this;
+      this.$http.get(this.host + this.api.uc.captcha).then(function(res) {
+        window.initGeetest(
+          {
+            // 以下配置参数来自服务端 SDK
+            gt: res.body.gt,
+            challenge: res.body.challenge,
+            offline: !res.body.success, //表示用户后台检测极验服务器是否宕机
+            new_captcha: res.body.new_captcha, //用于宕机时表示是新验证码的宕机
+            product: "bind",
+            width: "100%",
+          lang: "en"
+          },
+        this.handler
+        );
+      });
     },
 	handler(captchaObj) {
 	  captchaObj.onReady(() => {
@@ -422,6 +426,7 @@ export default {
         if (valid) {
           if (this.agree == true) {
             if (this.changeActive == 1) {
+              console.log(`isRegister: ${this.isRegister}`);
               if (this.isRegister) {
                 this.registing = true;
                 var params = {};

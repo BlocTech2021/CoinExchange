@@ -600,6 +600,7 @@ export default {
       });
     },
     checkLogin() {
+      console.log(`http: ${this.$http}`);
       this.$http.post(this.host + "/uc/check/login", {}).then(response => {
         var result = response.body;
         if (result.code == 0 && result.data == false) {

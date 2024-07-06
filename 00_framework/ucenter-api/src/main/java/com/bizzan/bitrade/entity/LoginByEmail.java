@@ -21,7 +21,7 @@ public class LoginByEmail {
     private String password;
 
     @NotBlank(message = "{LoginByEmail.username.null}")
-    @Length(min = 3, max = 20, message = "{LoginByEmail.username.length}")
+    @Length(min = 3, max = 100, message = "{LoginByEmail.username.length}")
     private String username;
 
     @NotBlank(message =  "{LoginByEmail.country.null}")

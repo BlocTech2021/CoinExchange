@@ -60,11 +60,12 @@ public class MemberEvent {
     public void onRegisterSuccess(Member member, String promotionCode) throws InterruptedException {
         JSONObject json = new JSONObject();
         json.put("uid", member.getId());
-        //发送给wallet项目consumer处理（）
-        kafkaTemplate.send("member-register", json.toJSONString());
+        //发送给wallet项目consumer处理（
+        log.info("Send member-register Kafka message " + member.getUsername());
+        kafkaTemplate.send("member-register", member.getId().toString(), json.toJSONString());
 
         //发送给contract-swap-api项目consumer处理
-        kafkaTemplate.send("member-register-swap", json.toJSONString());
+        kafkaTemplate.send("member-register-swap", member.getId().toString(), json.toJSONString());
 
         //推广活动
         if (StringUtils.hasText(promotionCode)) {
@@ -79,6 +80,7 @@ public class MemberEvent {
         }
         //增加upper关系
         memberWeightUpperService.saveMemberWeightUpper(member);
+        log.info("Finish onRegisterSuccess");
     }
 
     /**

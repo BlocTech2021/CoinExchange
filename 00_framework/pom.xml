@@ -56,7 +56,7 @@
 		<!--务必用高版本，1.2.48以下有序列化远程执行漏洞【高危】-->
 		<fastjson_version>1.2.75</fastjson_version>
 		<!--修复0.10版本的连接BUG-->
-		<kafka_version>0.10.2.2</kafka_version>
+		<kafka_version>1.0.2</kafka_version>
 		<!-- Log libs -->
 		<slf4j_version>1.7.7</slf4j_version>
 		<jcl_version>1.1</jcl_version>
@@ -399,7 +399,16 @@
 				<artifactId>javax.inject</artifactId>
 				<version>1</version>
 			</dependency>
-
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.2.3</version> <!-- Use the latest version available -->
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>1.7.1</version> <!-- Check for the latest version -->
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
